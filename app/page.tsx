@@ -1,6 +1,13 @@
+import { LoginButton, LogoutButton, ProfileButton, RegisterButton } from '@/components/buttons.component'
+import { User } from '@/components/user.component';
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  console.log(session);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -107,6 +114,17 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
+      </div>
+      <div>
+        <LoginButton />
+        <RegisterButton />
+        <LogoutButton />
+        <ProfileButton />
+
+        <h1>Server Session</h1>
+        <pre>{JSON.stringify(session)}</pre>
+
+        <User />
       </div>
     </main>
   )
